@@ -53,7 +53,6 @@
         }
         .nav-links a:hover { color: #fff; text-shadow: 0 0 10px var(--accent); }
 
-        /* Hero Section */
         .hero {
             height: 60vh;
             display: flex;
@@ -71,7 +70,6 @@
             width: 100%;
         }
 
-        /* Brand Text Styling */
         .brand-text {
             font-family: 'Syncopate', sans-serif;
             font-size: 0.75rem;
@@ -84,7 +82,6 @@
             opacity: 0.9;
         }
 
-        /* Flipping Grid System */
         .flip-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -122,6 +119,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: zoom-in; /* Indicates the image is clickable for zoom */
         }
         .flip-overlay-btn {
             position: absolute;
@@ -138,13 +136,42 @@
             cursor: pointer;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
             transition: 0.3s;
+            z-index: 5;
         }
         .flip-overlay-btn:hover {
             background: var(--accent);
             box-shadow: 0 0 15px var(--accent);
         }
 
-        /* Responsiveness fixes */
+        /* LIGHTBOX STYLES */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+        }
+        .close-zoom {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Syncopate';
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
         @media (max-width: 600px) {
             .nav-links { display: flex; } 
             .hero { height: 50vh; padding-top: 60px; }
@@ -155,12 +182,19 @@
     </style>
 </head>
 <body>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-zoom">[ CLOSE ]</span>
+        <img id="lightbox-img" src="" alt="Zoomed view">
+    </div>
+
     <nav>
         <div class="logo">TB078</div>
         <div class="nav-links">
             <a href="contact.html">Contact</a>
         </div>
     </nav>
+
     <main class="hero">
         <h1>TanteBep078</h1>
         <p style="color: #666; letter-spacing: 3px;">PREMIUM QUALITY // 078 AREA</p>
@@ -168,15 +202,16 @@
             DE EXCLUSIEVE BESTEMMING VOOR PREMIUM BRAND ITEMS
         </div>
     </main>
+
     <section class="flip-grid">
         <div class="flip-card" id="card1">
             <div class="flip-card-inner">
                 <div class="flip-front">
-                    <img src="images/nix1.jpg" alt="Front 1">
+                    <img src="images/nix1.jpg" alt="Front 1" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card1')">BODYWARMER</button>
                 </div>
                 <div class="flip-back">
-                    <img src="images/nix1flip.jpg" alt="Back 1">
+                    <img src="images/nix1flip.jpg" alt="Back 1" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card1')">TERUG</button>
                 </div>
             </div>
@@ -184,11 +219,11 @@
         <div class="flip-card" id="card2">
             <div class="flip-card-inner">
                 <div class="flip-front">
-                    <img src="images/nix2.jpg" alt="Front 2">
+                    <img src="images/nix2.jpg" alt="Front 2" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card2')">HOODIE</button>
                 </div>
                 <div class="flip-back">
-                    <img src="images/nix2flip.jpg" alt="Back 2">
+                    <img src="images/nix2flip.jpg" alt="Back 2" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card2')">TERUG</button>
                 </div>
             </div>
@@ -196,11 +231,11 @@
         <div class="flip-card" id="card3">
             <div class="flip-card-inner">
                 <div class="flip-front">
-                    <img src="images/nix3.jpg" alt="Front 3">
+                    <img src="images/nix3.jpg" alt="Front 3" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card3')">BIKINI</button>
                 </div>
                 <div class="flip-back">
-                    <img src="images/nix3flip.jpg" alt="Back 3">
+                    <img src="images/nix3flip.jpg" alt="Back 3" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card3')">TERUG</button>
                 </div>
             </div>
@@ -208,20 +243,39 @@
         <div class="flip-card" id="card4">
             <div class="flip-card-inner">
                 <div class="flip-front">
-                    <img src="images/nix4.jpg" alt="Front 4">
+                    <img src="images/nix4.jpg" alt="Front 4" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card4')">LEGGING</button>
                 </div>
                 <div class="flip-back">
-                    <img src="images/nix4flip.jpg" alt="Back 4">
+                    <img src="images/nix4flip.jpg" alt="Back 4" onclick="openLightbox(this.src)">
                     <button class="flip-overlay-btn" onclick="flip('card4')">TERUG</button>
                 </div>
             </div>
         </div>
     </section>
+
     <script>
+        // Flip function
         function flip(id) {
             document.getElementById(id).classList.toggle('active');
         }
+
+        // Lightbox functions
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling when zoomed
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Mousemove effect
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;

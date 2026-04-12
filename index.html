@@ -14,7 +14,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background-color: var(--bg);
             color: #fff;
@@ -22,7 +21,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
         
         nav {
             display: flex;
@@ -37,7 +35,6 @@
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .logo {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
@@ -46,7 +43,6 @@
             color: var(--accent);
             text-transform: uppercase;
         }
-
         .nav-links { display: flex; gap: 20px; }
         .nav-links a {
             text-decoration: none;
@@ -59,7 +55,7 @@
 
         /* Hero Section */
         .hero {
-            height: 60vh; /* Reduced height to close the gap */
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -67,15 +63,16 @@
             padding: 0 10%;
             text-align: center;
         }
-
         .hero h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            /* Optimized clamp for better scaling */
+            font-size: clamp(1.8rem, 7vw, 5rem); 
             margin-bottom: 0.5rem;
             position: relative;
+            width: 100%;
         }
 
-        /* New Brand Text Styling */
+        /* Brand Text Styling */
         .brand-text {
             font-family: 'Syncopate', sans-serif;
             font-size: 0.75rem;
@@ -93,16 +90,14 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
-            padding: 0 10% 5% 10%; /* Reduced top padding */
+            padding: 0 10% 5% 10%;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .flip-card {
             perspective: 1000px;
             height: 400px;
         }
-
         .flip-card-inner {
             position: relative;
             width: 100%;
@@ -110,11 +105,9 @@
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
-
         .flip-card.active .flip-card-inner {
             transform: rotateY(180deg);
         }
-
         .flip-front, .flip-back {
             position: absolute;
             width: 100%;
@@ -125,15 +118,12 @@
             border-radius: 4px;
             overflow: hidden;
         }
-
         .flip-back { transform: rotateY(180deg); }
-
         .flip-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .flip-overlay-btn {
             position: absolute;
             bottom: 20px;
@@ -150,30 +140,17 @@
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
             transition: 0.3s;
         }
-
         .flip-overlay-btn:hover {
             background: var(--accent);
             box-shadow: 0 0 15px var(--accent);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 5% 10%;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-        }
-
+        /* Responsiveness fixes */
         @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .hero { height: 50vh; }
-            .brand-text { font-size: 0.55rem; letter-spacing: 3px; }
+            .nav-links { display: flex; } /* Keep menu visible */
+            .hero { height: 50vh; padding-top: 60px; }
+            .hero h1 { font-size: 1.6rem; letter-spacing: 1px; } /* Prevent overlap */
+            .brand-text { font-size: 0.5rem; letter-spacing: 2px; padding: 10px 5px; }
             .flip-grid { grid-template-columns: 1fr; padding: 5%; }
         }
     </style>
@@ -182,10 +159,9 @@
     <nav>
         <div class="logo">TB078</div>
         <div class="nav-links">
-        <a href="contact.html">Contact</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
-
     <main class="hero">
         <h1>TanteBep078</h1>
         <p style="color: #666; letter-spacing: 3px;">PREMIUM QUALITY // 078 AREA</p>
@@ -193,7 +169,6 @@
             DE EXCLUSIEVE BESTEMMING VOOR PREMIUM BRAND ITEMS
         </div>
     </main>
-
     <section class="flip-grid">
         <div class="flip-card" id="card1">
             <div class="flip-card-inner">
@@ -207,7 +182,6 @@
                 </div>
             </div>
         </div>
-
         <div class="flip-card" id="card2">
             <div class="flip-card-inner">
                 <div class="flip-front">
@@ -221,18 +195,15 @@
             </div>
         </div>
     </section>
-
-    
     <script>
         function flip(id) {
             document.getElementById(id).classList.toggle('active');
         }
-
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             const title = document.querySelector('.hero h1');
-            if(title) title.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            if(title && window.innerWidth > 600) title.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
     </script>
 </body>

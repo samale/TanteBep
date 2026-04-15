@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TanteBep078 | Premium Glitch</title>
+    <title>TanteBep078 | NIX.</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,12 +13,7 @@
             --card-bg: rgba(255, 255, 255, 0.03);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: var(--bg);
             color: #fff;
@@ -26,8 +21,7 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
-        /* Modern Navigation */
+        
         nav {
             display: flex;
             justify-content: space-between;
@@ -41,7 +35,6 @@
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .logo {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
@@ -50,12 +43,7 @@
             color: var(--accent);
             text-transform: uppercase;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
+        .nav-links { display: flex; gap: 20px; }
         .nav-links a {
             text-decoration: none;
             color: #aaa;
@@ -63,12 +51,10 @@
             text-transform: uppercase;
             transition: 0.3s;
         }
-
         .nav-links a:hover { color: #fff; text-shadow: 0 0 10px var(--accent); }
 
-        /* Hero Section */
         .hero {
-            height: 100vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -76,172 +62,225 @@
             padding: 0 10%;
             text-align: center;
         }
-
         .hero h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(2rem, 8vw, 5rem);
-            margin-bottom: 1rem;
+            font-size: clamp(1.8rem, 7vw, 5rem); 
+            margin-bottom: 0.5rem;
             position: relative;
+            width: 100%;
         }
 
-        /* Modern Glitch Effect */
-        .hero h1::before, .hero h1::after {
-            content: "TanteBep078";
+        .brand-text {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.75rem;
+            color: #fff;
+            letter-spacing: 5px;
+            margin-top: 1.5rem;
+            padding: 10px 20px;
+            border-top: 1px solid rgba(0, 242, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+            opacity: 0.9;
+        }
+
+        .flip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 0 10% 5% 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .flip-card {
+            perspective: 1000px;
+            height: 400px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.active .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-front, .flip-back {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.8;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
         }
-
-        .hero h1:hover::before {
-            color: var(--glitch-red);
-            animation: glitch-anim 0.2s infinite;
-            z-index: -1;
+        .flip-back { transform: rotateY(180deg); }
+        .flip-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in; /* Indicates the image is clickable for zoom */
         }
-
-        @keyframes glitch-anim {
-            0% { transform: translate(0); }
-            20% { transform: translate(-5px, 5px); }
-            40% { transform: translate(-5px, -5px); }
-            100% { transform: translate(5px, 5px); }
-        }
-
-        /* Button & Interactions */
-        .cta-container {
-            margin-top: 2rem;
-        }
-
-        .main-btn {
-            padding: 1rem 2.5rem;
+        .flip-overlay-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
             background: #fff;
             color: #000;
-            border: none;
             font-family: 'Syncopate';
+            font-size: 0.7rem;
             font-weight: 700;
+            border: none;
             cursor: pointer;
-            transition: 0.4s;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: 0.3s;
+            z-index: 5;
         }
-
-        .main-btn:hover {
+        .flip-overlay-btn:hover {
             background: var(--accent);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--accent);
+            box-shadow: 0 0 15px var(--accent);
         }
 
-        /* Image Viewer (Modal) */
-        .modal {
+        /* LIGHTBOX STYLES */
+        .lightbox {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
             z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            cursor: zoom-out;
         }
-
-        .modal-content {
-            max-width: 100%;
-            max-height: 80vh;
-            border: 1px solid var(--accent);
-            transform: scale(0.8);
-            transition: 0.3s;
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
         }
-
-        .modal.active { display: flex; }
-        .modal.active .modal-content { transform: scale(1); }
-
-        .close-modal {
+        .close-zoom {
             position: absolute;
-            top: 30px;
-            right: 30px;
+            top: 20px;
+            right: 20px;
             font-family: 'Syncopate';
-            cursor: pointer;
-            color: var(--glitch-red);
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
         }
 
-        /* Mobile Friendly Grid */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 5% 10%;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .glass-card:hover {
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        /* Responsiveness voor kleine schermen */
         @media (max-width: 600px) {
-            .nav-links { display: none; } /* Simpel voor nu: verberg links op mobile */
-            .hero { padding: 0 5%; }
-            .main-btn { width: 100%; clip-path: none; }
+            .nav-links { display: flex; } 
+            .hero { height: 50vh; padding-top: 60px; }
+            .hero h1 { font-size: 1.6rem; letter-spacing: 1px; } 
+            .brand-text { font-size: 0.5rem; letter-spacing: 2px; padding: 10px 5px; }
+            .flip-grid { grid-template-columns: 1fr; padding: 5%; }
         }
     </style>
 </head>
 <body>
 
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-zoom">[ CLOSE ]</span>
+        <img id="lightbox-img" src="" alt="Zoomed view">
+    </div>
+
     <nav>
         <div class="logo">TB078</div>
         <div class="nav-links">
-            <a href="#shop">Webshop</a>
-            <a href="#proof">Bewijs</a>
-            <a href="#contact">Contact</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
 
     <main class="hero">
         <h1>TanteBep078</h1>
         <p style="color: #666; letter-spacing: 3px;">PREMIUM QUALITY // 078 AREA</p>
-        
-        <div class="cta-container">
-            <button class="main-btn" onclick="toggleModal(true)">OPEN 1.PNG</button>
+        <div class="brand-text">
+            DE EXCLUSIEVE BESTEMMING VOOR PREMIUM BRAND ITEMS
         </div>
     </main>
 
-    <section id="proof" class="content-grid">
-        <div class="glass-card">
-            <h3 style="color: var(--accent)">STATUS</h3>
-            <p>Systeem is online. Alle leveringen zijn geverifieerd.</p>
+    <section class="flip-grid">
+        <div class="flip-card" id="card1">
+            <div class="flip-card-inner">
+                <div class="flip-front">
+                    <img src="images/nix1.jpg" alt="Front 1" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card1')">BODYWARMER</button>
+                </div>
+                <div class="flip-back">
+                    <img src="images/nix1flip.jpg" alt="Back 1" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card1')">TERUG</button>
+                </div>
+            </div>
         </div>
-        <div class="glass-card">
-            <h3 style="color: var(--glitch-red)">EXCLUSIEF</h3>
-            <p>Alleen voor degenen die kwaliteit herkennen.</p>
+        <div class="flip-card" id="card2">
+            <div class="flip-card-inner">
+                <div class="flip-front">
+                    <img src="images/nix2.jpg" alt="Front 2" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card2')">HOODIE</button>
+                </div>
+                <div class="flip-back">
+                    <img src="images/nix2flip.jpg" alt="Back 2" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card2')">TERUG</button>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" id="card3">
+            <div class="flip-card-inner">
+                <div class="flip-front">
+                    <img src="images/nix3.jpg" alt="Front 3" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card3')">BIKINI</button>
+                </div>
+                <div class="flip-back">
+                    <img src="images/nix3flip.jpg" alt="Back 3" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card3')">TERUG</button>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card" id="card4">
+            <div class="flip-card-inner">
+                <div class="flip-front">
+                    <img src="images/nix4.jpg" alt="Front 4" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card4')">LEGGING</button>
+                </div>
+                <div class="flip-back">
+                    <img src="images/nix4flip.jpg" alt="Back 4" onclick="openLightbox(this.src)">
+                    <button class="flip-overlay-btn" onclick="flip('card4')">TERUG</button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div id="imageModal" class="modal">
-        <span class="close-modal" onclick="toggleModal(false)">[ SLUIT ]</span>
-        <img src="images/1.png" alt="Bewijs" class="modal-content">
-    </div>
-
     <script>
-        function toggleModal(show) {
-            const modal = document.getElementById('imageModal');
-            if (show) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Stop scrollen
-            } else {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
+        // Flip function
+        function flip(id) {
+            document.getElementById(id).classList.toggle('active');
         }
 
-        // Glitch mouse follow effect (optioneel)
+        // Lightbox functions
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling when zoomed
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Mousemove effect
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.querySelector('.hero h1').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            const title = document.querySelector('.hero h1');
+            if(title && window.innerWidth > 600) title.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
     </script>
 </body>

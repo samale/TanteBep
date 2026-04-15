@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TanteBep078 | NIX.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap-grid.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -80,19 +81,20 @@
             border-top: 1px solid rgba(0, 242, 255, 0.3);
             border-bottom: 1px solid rgba(0, 242, 255, 0.3);
             opacity: 0.9;
+            margin-bottom: 3rem;
         }
 
-        .flip-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            padding: 0 10% 5% 10%;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Card Container Styling */
+        .item-container {
+            margin-bottom: 40px;
+            text-align: center;
         }
+
         .flip-card {
             perspective: 1000px;
             height: 400px;
+            margin: 0 auto;
+            width: 100%;
         }
         .flip-card-inner {
             position: relative;
@@ -108,7 +110,6 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 4px;
@@ -119,8 +120,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: zoom-in; /* Indicates the image is clickable for zoom */
+            cursor: zoom-in;
         }
+
+        /* Buttons */
         .flip-overlay-btn {
             position: absolute;
             bottom: 20px;
@@ -130,7 +133,7 @@
             background: #fff;
             color: #000;
             font-family: 'Syncopate';
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
@@ -143,7 +146,26 @@
             box-shadow: 0 0 15px var(--accent);
         }
 
-        /* LIGHTBOX STYLES */
+        .order-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 40px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            text-decoration: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .order-btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -160,31 +182,19 @@
             max-width: 90%;
             max-height: 85vh;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
-        }
-        .close-zoom {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-family: 'Syncopate';
-            color: var(--accent);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .nav-links { display: flex; } 
             .hero { height: 50vh; padding-top: 60px; }
-            .hero h1 { font-size: 1.6rem; letter-spacing: 1px; } 
-            .brand-text { font-size: 0.5rem; letter-spacing: 2px; padding: 10px 5px; }
-            .flip-grid { grid-template-columns: 1fr; padding: 5%; }
+            .hero h1 { font-size: 1.6rem; } 
+            .brand-text { font-size: 0.5rem; letter-spacing: 2px; }
         }
     </style>
 </head>
 <body>
 
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-zoom">[ CLOSE ]</span>
         <img id="lightbox-img" src="" alt="Zoomed view">
     </div>
 
@@ -203,79 +213,60 @@
         </div>
     </main>
 
-    <section class="flip-grid">
-        <div class="flip-card" id="card1">
-            <div class="flip-card-inner">
-                <div class="flip-front">
-                    <img src="images/nix1.jpg" alt="Front 1" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card1')">BODYWARMER</button>
-                </div>
-                <div class="flip-back">
-                    <img src="images/nix1flip.jpg" alt="Back 1" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card1')">TERUG</button>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <script>
+                
+                const items = [
+                    {id: '1', name: 'BODYWARMER', img: 'images/nix1.jpg', back: 'images/nix1flip.jpg'},
+                    {id: '2', name: 'HOODIE', img: 'images/nix2.jpg', back: 'images/nix2flip.jpg'},
+                    {id: '3', name: 'UNDWEAR BLACK', img: 'images/nix3.jpg', back: 'images/nix3flip.jpg'},
+                    {id: '4', name: 'UNDWEAR BLUE', img: 'images/nix4.jpg', back: 'images/nix4flip.jpg'},
+                    {id: '5', name: 'UNDWEAR BLACK', img: 'images/nix5.jpg', back: 'images/nix5flip.jpg'},
+                    {id: '6', name: 'UNDWEAR BLUE', img: 'images/nix6.jpg', back: 'images/nix6flip.jpg'}
+                ];
+
+                items.forEach(item => {
+                    document.write(`
+                        <div class="col-12 col-md-6 col-lg-4 item-container">
+                            <div class="flip-card" id="card${item.id}">
+                                <div class="flip-card-inner">
+                                    <div class="flip-front">
+                                        <img src="${item.img}" alt="${item.name}" onclick="openLightbox(this.src)">
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">${item.name}</button>
+                                    </div>
+                                    <div class="flip-back">
+                                        <img src="${item.back}" alt="${item.name} Back" onclick="openLightbox(this.src)">
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">TERUG</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="mailto:tantebep078@gmail.com?subject=Bestelling: ${item.name}" class="order-btn">Bestellen</a>
+                        </div>
+                    `);
+                });
+            </script>
         </div>
-        <div class="flip-card" id="card2">
-            <div class="flip-card-inner">
-                <div class="flip-front">
-                    <img src="images/nix2.jpg" alt="Front 2" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card2')">HOODIE</button>
-                </div>
-                <div class="flip-back">
-                    <img src="images/nix2flip.jpg" alt="Back 2" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card2')">TERUG</button>
-                </div>
-            </div>
-        </div>
-        <div class="flip-card" id="card3">
-            <div class="flip-card-inner">
-                <div class="flip-front">
-                    <img src="images/nix3.jpg" alt="Front 3" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card3')">BIKINI</button>
-                </div>
-                <div class="flip-back">
-                    <img src="images/nix3flip.jpg" alt="Back 3" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card3')">TERUG</button>
-                </div>
-            </div>
-        </div>
-        <div class="flip-card" id="card4">
-            <div class="flip-card-inner">
-                <div class="flip-front">
-                    <img src="images/nix4.jpg" alt="Front 4" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card4')">LEGGING</button>
-                </div>
-                <div class="flip-back">
-                    <img src="images/nix4flip.jpg" alt="Back 4" onclick="openLightbox(this.src)">
-                    <button class="flip-overlay-btn" onclick="flip('card4')">TERUG</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <script>
-        // Flip function
         function flip(id) {
             document.getElementById(id).classList.toggle('active');
         }
 
-        // Lightbox functions
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
             lbImg.src = src;
             lb.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Stop scrolling when zoomed
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
-            const lb = document.getElementById('lightbox');
-            lb.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        // Mousemove effect
         document.addEventListener('mousemove', (e) => {
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;

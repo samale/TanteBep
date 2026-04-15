@@ -127,21 +127,33 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: #fff;
             color: #000;
             font-family: 'Syncopate';
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
             transition: 0.3s;
             z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        /* Subtle indicator that it's an action button */
+        .flip-overlay-btn::after {
+            content: '⟳';
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
         .flip-overlay-btn:hover {
             background: var(--accent);
             box-shadow: 0 0 15px var(--accent);
+            transform: translateX(-50%) scale(1.05);
         }
 
         .order-btn {
@@ -191,7 +203,6 @@
             overflow: hidden;
         }
 
-        /* Scanning Line Effect */
         footer::after {
             content: "";
             position: absolute;
@@ -315,11 +326,11 @@
                                 <div class="flip-card-inner">
                                     <div class="flip-front">
                                         <img src="${item.img}" alt="${item.name}" onclick="openLightbox(this.src)">
-                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">${item.name}</button>
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">INFO / ${item.name}</button>
                                     </div>
                                     <div class="flip-back">
                                         <img src="${item.back}" alt="${item.name} Back" onclick="openLightbox(this.src)">
-                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">TERUG</button>
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">BACK</button>
                                     </div>
                                 </div>
                             </div>

@@ -308,28 +308,9 @@
     </main>
 
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 item-container" style="margin-bottom: 60px;">
-                <div style="height: 680px; max-width: 384px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
-                    <img src="images/petjes/pet.jpg" alt="GROTE ZOMERACTIE - PETJES" onclick="openLightbox(this.src)" style="width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;">
-                </div>
-                <div style="font-family: 'Syncopate', sans-serif; font-size: 0.85rem; margin-top: 20px; letter-spacing: 2px;">
-                    <span style="color: var(--accent); font-weight: 700;">GROTE ZOMERACTIE:</span> PETJES NU VOOR MAAR €25
-                </div>
-                <a href="mailto:tantebep078@gmail.com?subject=Bestelling: Grote Zomeractie Petjes voor €25" class="order-btn" style="padding: 14px 60px; font-size: 0.75rem;">Bestellen</a>
-            </div>
-        </div>
-
         <div class="row">
             <script>
                 const items = [
-                    
-                    {id: '7', name: 'Appelmoes', img: 'images/petjes/appel.jpg', back: 'images/petjes/appel2.jpg'},
-                    {id: '8', name: 'Eigenlijk', img: 'images/petjes/eigenlijk.jpg', back: 'images/petjes/eigenlijk2.png'},
-                    {id: '9', name: 'Mooi maken', img: 'images/petjes/mooi.png', back: 'images/petjes/mooi2.png'},
-                    {id: '10', name: 'Tante Bep', img: 'images/petjes/tante.png', back: 'images/petjes/tante2.png'},
-                    
-                    // The original 6 items follow right below
                     {id: '1', name: 'BODYWARMER', img: 'images/nix1.jpg', back: 'images/nix1flip.jpg'},
                     {id: '2', name: 'HOODIE', img: 'images/nix2.jpg', back: 'images/nix2flip.jpg'},
                     {id: '3', name: 'UNDWEAR BLACK', img: 'images/nix3.jpg', back: 'images/nix3flip.jpg'},
@@ -345,11 +326,11 @@
                                 <div class="flip-card-inner">
                                     <div class="flip-front">
                                         <img src="${item.img}" alt="${item.name}" onclick="openLightbox(this.src)">
-                                        <button class="flip-overlay-btn" onclick="event.stopPropagation(); flip('card${item.id}')">INFO / ${item.name}</button>
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">INFO / ${item.name}</button>
                                     </div>
                                     <div class="flip-back">
                                         <img src="${item.back}" alt="${item.name} Back" onclick="openLightbox(this.src)">
-                                        <button class="flip-overlay-btn" onclick="event.stopPropagation(); flip('card${item.id}')">BACK</button>
+                                        <button class="flip-overlay-btn" onclick="flip('card${item.id}')">BACK</button>
                                     </div>
                                 </div>
                             </div>
